@@ -22,7 +22,7 @@
     
 #     return render(request, 'accounts/dashboard.html')
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 
 def login_view(request):
     if request.method == 'POST':
@@ -34,3 +34,12 @@ def login_view(request):
 
 def dashboard_view(request):
     return render(request, 'accounts/dashboard.html')
+
+def add_user_view(request):
+    return render(request, 'accounts/addusers.html')  
+
+def hello(request):
+    
+    print('!!!!!!!!!!')
+    return (HttpResponse, "Helloworld")
+    
