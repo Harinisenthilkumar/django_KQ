@@ -1,0 +1,193 @@
+
+/* Full-screen background with no scroll */
+body {
+  margin: 0;
+  overflow: hidden;
+  height: 100vh;
+  font-family: Calibri, sans-serif;
+  background: url("/static/accounts/images/bg.jpg") no-repeat center center fixed;
+  background-size: cover;
+}
+
+.background-wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Centered login box */
+.main-login-box {
+  width: 900px;
+  height: 583px;
+  background: #FFFFFF;
+  box-shadow: 10px 30px 50px #3F27684D;
+  border-radius: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+}
+
+/* Container for login form */
+.login-form-side {
+  flex: 1;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #fff;
+}
+
+/* Heading */
+.login-form-side h2 {
+  font-size: 24px;
+  margin-bottom: 60px;
+  color: #3F2768;
+}
+
+/* Group: Email, Password */
+.form-group {
+  position: relative;
+  margin-bottom: 30px; /* Space between Email and Password */
+}
+
+/* Label style */
+.form-group label {
+  font-size: 16px;
+  color: #3F2768;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Input Fields */
+.form-group input {
+  width: 100%;
+  height: 50px;
+  padding: 0 45px 0 15px;
+  border: 1px solid #D4CDE1;
+  border-radius: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+  background: #FFFFFF;
+}
+
+
+.form-group input {
+  padding: 12px 40px 12px 10px;
+  width: 100%;
+  border: 1px solid #D4CDE1;
+  border-radius: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+  height: 50px;
+}
+
+/* Toggle Eye Icon */
+.toggle-password-icon {
+  position: absolute;
+  right: 10px;
+  top: 38px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+/* Forgot Password */
+.forgot-password {
+  position: absolute;
+  right: 0;
+  bottom: -20px;
+  font-size: 14px;
+  color: #3F2768;
+  text-decoration: none;
+}
+
+.login-form-side label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #333;
+}
+
+.login-form-side input {
+  width: 330px;
+  height: 50px;
+  background: #FFFFFF;
+  border: 1px solid #D4CDE1;
+  border-radius: 10px;
+  padding: 0 15px;
+  font-size: 16px;
+}
+
+.forgot-password {
+  position: absolute;
+  right: 0;
+  bottom: -20px;
+  font-size: 14px;
+  color: #3F2768;
+  text-decoration: none;
+}
+
+/* Button */
+.login-btn {
+  width: 330px;
+  height: 50px;
+  background: #3F2768;
+  box-shadow: 0px 10px 20px #3F27684D;
+  border-radius: 10px;
+  opacity: 1;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: none;
+  cursor: pointer;
+  margin-top: 130px; }
+
+
+.arrow-icon {
+  width: 10px;
+  height: 10px;
+  opacity: 1;
+}
+
+
+
+.login-overlay-side {
+  flex: 1;
+  background: #3F2768;
+ background-image: url("../images/login-background.png");
+  color: white; 
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+
+}
+
+.logo-image {
+  width: 333px;
+  height: 265px;
+  margin-bottom: 20px;
+}
+
+
+.logo-text-management {
+  font-weight: 300;
+  font-size: 30px;
+  color: #EB8022;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.rectangle-img {
+  width: 238px;
+  height: 46px;
+}

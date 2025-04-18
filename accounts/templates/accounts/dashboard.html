@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="{% static 'accounts/css/dashboard.css' %}">
+</head>
+<body>
+  <div class="container">
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo-section">
+        <div class="logo-circle">
+          <img src="{% static 'accounts/images/l1.svg' %}" alt="Logo" class="logo">
+        </div>
+        <h2 class="logo-text">Knowledge Q</h2>
+        <img src="{% static 'accounts/images/filter_whitebg.svg' %}" alt="Filter" class="filter-icon">
+      </div>
+
+      <nav class="nav-links">
+        <ul>
+          <li >
+            <img src="{% static 'accounts/images/dashboard_whitebg.svg' %}" class="icon-img"> Dashboard
+          </li>
+          <li>
+            <img src="{% static 'accounts/images/question_bank_whitebg.svg' %}" class="icon-img"> Question Bank
+          </li>
+          <li>
+            <img src="{% static 'accounts/images/users_whitebg.svg' %}" class="icon-img"> Users
+          </li>
+          <li>
+            <img src="{% static 'accounts/images/blueprint_whitebg.svg' %}" class="icon-img"> Blueprint
+          </li>
+          <li>
+            <img src="{% static 'accounts/images/assessment_whitebg.svg' %}" class="icon-img"> Assessment
+          </li>
+          <li>
+            <img src="{% static 'accounts/images/assignment_whitebg.svg' %}" class="icon-img"> Assignment
+          </li>
+          <li>
+            <img src="{% static 'accounts/images/reports_whitebg.svg' %}" class="icon-img"> Reports
+          </li>
+          <li>
+            <img src="{% static 'accounts/images/logout_whitebg.svg' %}" class="icon-img"> Logout
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-image">
+        <img src="{% static 'accounts/images/Rectangle 14.png' %}" alt="Sidebar Banner">
+      </div>
+      
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="top-bar">
+        <h1>Users</h1>
+        <button class="add-btn">
+          <img src="{% static 'accounts/images/add-icon.png' %}" alt="Add" class="icon-img"> + Add
+        </button>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>User Role</th>
+              <th>Email ID</th>
+              <th>User Name</th>
+              <th>Department</th>
+              <th>Designation</th>
+              <th>Mobile Number</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <button class="edit"><img src="{% static 'accounts/images/edit.svg' %}" class="icon-img" alt="Edit"></button>
+                <button class="delete"><img src="{% static 'accounts/images/delete.svg' %}" class="icon-img" alt="Delete"></button>
+              </td>
+              <td>Employee</td>
+              <td>adarsh.s@knowledgeq.com</td>
+              <td>Adarsh</td>
+              <td>Tech</td>
+              <td>Developer</td>
+              <td>9876543210</td>
+              <td><span class="status active">Active</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <!-- Sticky Page Footer -->
+    <footer class="pagination-footer">
+      <p>No of Records:</p>
+      <select>
+        <option>10</option>
+        <option>20</option>
+      </select>
+      <p>1 to 10 of 14 | Page 1 of 2</p>
+    </footer>
+    
+  </div>
+</body>
+</html>
