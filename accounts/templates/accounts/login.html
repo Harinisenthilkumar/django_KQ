@@ -112,16 +112,16 @@
 </head>
 <body>
   <div class="background-wrapper">
-    <!-- Login Box  -->
     <div class="main-login-box">
       <div class="login-form-side">
         <h2>Login to your account</h2>
-        <form method="POST" class="login-form">
+        <form method="POST" class="login-form" id="loginForm">
           {% csrf_token %}
 
           <div class="form-group">
             <label for="email">Email</label>
             <input type="text" id="email" name="username" required>
+            <p class="error-message" id="emailError"></p>
           </div>
 
           <div class="form-group">
@@ -129,8 +129,7 @@
             <input type="password" id="password" name="password" required>
             <img src="{% static 'accounts/images/eye-close.svg' %}" alt="Toggle Password" id="togglePassword" class="toggle-password-icon">
             <a href="#" class="forgot-password">Forgot Password?</a>
-          
-            
+            <p class="error-message" id="passwordError"></p>
           </div>
 
           <button type="submit" class="login-btn">
@@ -147,33 +146,57 @@
     </div>
   </div>
 
+
+
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const passwordInput = document.getElementById("password");
-      const toggleIcon = document.getElementById("togglePassword");
-      const emailInput = document.getElementById("email");
-      const usernameDisplay = document.getElementById("username-display");
+        const passwordInput = document.getElementById("password");
+        const toggleIcon = document.getElementById("togglePassword");
+        const emailInput = document.getElementById("email");
+        const loginForm = document.getElementById("loginForm");
+        const passwordError = document.getElementById("passwordError");
+        const emailError = document.getElementById("emailError");
 
-      toggleIcon.addEventListener("click", function () {
-        const isPassword = passwordInput.type === "password";
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~!@#$%\-_\\-])[A-Za-z\d~!@#$%\-_\\-]{8,}$/;
+        const emailPattern = /^[\w-\.]+@(gmail\.com|\.in|yahoo\.com)$/;
 
-        // Toggle password visibility
-        passwordInput.type = isPassword ? "text" : "password";
+        toggleIcon.addEventListener("click", function () {
+            const isPassword = passwordInput.type === "password";
+            passwordInput.type = isPassword ? "text" : "password";
+           
+            const icon = toggleIcon.querySelector('svg');
+            icon.classList.toggle('lucide-eye', isPassword);
+            icon.classList.toggle('lucide-eye-off', !isPassword);
 
-        // Switch the icon
-        toggleIcon.src = isPassword
-          ? "{% static 'accounts/images/eye.svg' %}"
-          : "{% static 'accounts/images/eye-close.svg' %}";
+        });
 
-        // Show or hide the email (username)
-        if (isPassword) {
-          usernameDisplay.style.display = "block";
-          usernameDisplay.textContent = "Username: " + emailInput.value;
-        } else {
-          usernameDisplay.style.display = "none";
-        }
-      });
+        loginForm.addEventListener("submit", function (event) {
+            let isEmailValid = true;
+            let isPasswordValid = true;
+
+            if (!emailPattern.test(emailInput.value)) {
+                emailError.textContent = "Invalid email format";
+                isEmailValid = false;
+            } else {
+                emailError.textContent = "";
+            }
+
+            if (!passwordRegex.test(passwordInput.value)) {
+                passwordError.textContent = "Password must be at least 8 characters and include uppercase, lowercase, number, and a special character.";
+                isPasswordValid = false;
+            } else {
+                passwordError.textContent = "";
+            }
+
+            if (isEmailValid && isPasswordValid) {
+                localStorage.setItem('email', emailInput.value);
+                localStorage.setItem('password', passwordInput.value);
+                
+            } else {
+                event.preventDefault();
+            }
+        });
     });
-  </script>
+</script>
 </body>
 </html>

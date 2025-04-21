@@ -40,8 +40,16 @@
                     <h2>Add User</h2>
                     
                 </div>
-                <label for="userrole">User Role <span style="color: #E80000;">*</span></label>
-                        <input type="text" id="userrole" class="user " required>
+                <div>
+                    <label for="userrole" class="block text-gray-700 text-sm font-bold mb-2">User Role <span style="color: #E80000;">*</span></label>
+                    <select id="userrole" class="user shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                       
+                        <option value="candidate">Candidate</option>
+                        <option value="sme">SME</option>
+                        <option value="examiner">Examiner</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                    <p id="userroleError" class="text-red-500 text-xs italic"></p> </div>
                 <div class="two-column-form">
                     <div class="form-group">
                         <label for="username">User Name <span style="color: #E80000;">*</span></label>

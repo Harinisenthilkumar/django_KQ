@@ -169,24 +169,25 @@ body {
     height: auto;
 }
 .user
-   {
-        width: 30%;
-        padding: 12px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        font-size: 1.1em;
-        box-sizing: border-box;
-        
-        height: auto;
-        display: block;
-        margin-bottom: 12px;
-        font-weight: 500;
-        font-size: 1.1em;
-        color: #555;
-         
+{
+     width: 30%;
+     padding: 12px;
+     border: 1px solid #ddd;
+     border-radius: 5px;
+     font-size: 1.1em;
+     box-sizing: border-box;
+     
+     height: auto;
+     display: block;
+     margin-bottom: 12px;
+     font-weight: 500;
+     font-size: 1.1em;
+     color: #555;
+       
+ }
 
         
-}
+
 
 .form-control:focus {
     outline: none;
