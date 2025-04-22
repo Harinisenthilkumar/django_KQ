@@ -1,0 +1,304 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f6;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 240px;
+            background-color: #3F2768;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+        }
+
+        .logo-section {
+            text-align: left;
+            padding: 0 20px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-circle {
+            background-color: white;
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+        }
+
+        .filter-icon {
+            margin-top: -90px;
+            width: 40px;
+            height: 40px;
+        }
+
+        .nav-links ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+
+        .nav-links li {
+            padding: 8px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-links li.active {
+            background-color: #EB8022;
+            font-weight: bold;
+            border-left: 4px solid white;
+        }
+
+        .nav-links li:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .icon-img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .sidebar-image {
+            margin-top: auto;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .sidebar-image img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 240px;
+        }
+
+        h1 {
+            color: #3f2768;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .form-group {
+            width: 48%;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+            font-size: 0.9em;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.9em;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #0c7b93;
+        }
+
+        .form-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .form-group .checkbox-label {
+            display: inline-block;
+            margin-left: 5px;
+            color: #555;
+            font-size: 0.9em;
+            vertical-align: middle;
+        }
+
+
+        button {
+            background-color:#3F2768;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            margin: 20px auto 0 auto;
+            display: block;
+            width: 200px;
+        }
+
+        button:hover {
+            background-color: #084c61;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+
+            .form-group {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+
+            form {
+                flex-direction: column;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+    <div class="logo-section">
+        <div class="logo-circle">
+            <img src="{% static 'accounts/images/l1.svg' %}" alt="Logo" class="logo">
+        </div>
+        <img src="{% static 'accounts/images/filter_whitebg.svg' %}" alt="Filter" class="filter-icon">
+    </div>
+    <nav class="nav-links">
+        <ul>
+            <li><img src="{% static 'accounts/images/dashboard_whitebg.svg' %}" class="icon-img"> Dashboard</li>
+            <li><img src="{% static 'accounts/images/question_bank_whitebg.svg' %}" class="icon-img"> Question Bank</li>
+            <li class="active"><img src="{% static 'accounts/images/users_whitebg.svg' %}" class="icon-img"> Users</li>
+            <li><img src="{% static 'accounts/images/blueprint_whitebg.svg' %}" class="icon-img"> Blueprint</li>
+            <li><img src="{% static 'accounts/images/assessment_whitebg.svg' %}" class="icon-img"> Assessment</li>
+            <li><img src="{% static 'accounts/images/assignment_whitebg.svg' %}" class="icon-img"> Assignment</li>
+            <li><img src="{% static 'accounts/images/reports_whitebg.svg' %}" class="icon-img"> Reports</li>
+            <li><img src="{% static 'accounts/images/logout_whitebg.svg' %}" class="icon-img"> Logout</li>
+        </ul>
+    </nav>
+    <div class="sidebar-image">
+        <img src="{% static 'accounts/images/Rectangle 14.png' %}" alt="Sidebar Banner">
+    </div>
+</div>
+    <main class="main-content">
+        <h1>Edit User</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="userrole">User Role</label>
+                <select id="userrole" name="userrole" required>
+                    <option value="candidate" {% if user.userRole == 'candidate' %}selected{% endif %}>Candidate</option>
+                    <option value="sme" {% if user.userRole == 'sme' %}selected{% endif %}>SME</option>
+                    <option value="examiner" {% if user.userRole == 'examiner' %}selected{% endif %}>Examiner</option>
+                    <option value="admin" {% if user.userRole == 'admin' %}selected{% endif %}>Admin</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="username">User Name</label>
+                <input type="text" id="username" name="username" value="{{ user.userName }}" required>
+            </div>
+           
+            <div class="form-group">
+                <label for="department">Department</label>
+                <select id="department" name="department" required>
+                    <option value="tech" {% if user.department == 'tech' %}selected{% endif %}>Tech</option>
+                    <option value="quality_check" {% if user.department == 'quality_check' %}selected{% endif %}>Quality Check</option>
+                    <option value="media" {% if user.department == 'media' %}selected{% endif %}>Media</option>
+                    <option value="business_development" {% if user.department == 'business_development' %}selected{% endif %}>Business Development</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="designation">Designation</label>
+                <select id="designation" name="designation" required>
+                    <option value="developer" {% if user.designation == 'developer' %}selected{% endif %}>Developer</option>
+                    <option value="qc_analysis" {% if user.designation == 'qc_analysis' %}selected{% endif %}>QC Analysis</option>
+                    <option value="business_development_executive" {% if user.designation == 'business_development_executive' %}selected{% endif %}>Business Development Executive</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="email">Email ID</label>
+                <input type="email" id="email" name="email" value="{{ user.emailId }}" required>
+            </div>
+            <div class="form-group">
+                <label for="mobile-number">Mobile Number</label>
+                <input type="text" id="mobile-number" name="mobile-number" value="{{ user.mobileNumber }}" required>
+                <div class="form-group">
+                    <label>Is Active</label>
+                    <div style="display: flex; align-items: center;">
+                        <input type="radio" id="is-active-yes" name="is-active" value="yes" {% if user.isActive %}checked{% endif %}>
+                        <label for="is-active-yes" style="margin-right: 15px;">Yes</label>
+                        <input type="radio" id="is-active-no" name="is-active" value="no" {% if not user.isActive %}checked{% endif %}>
+                        <label for="is-active-no">No</label>
+                    </div>
+                </div>
+                {% comment %} <div class="form-group">
+                    <label>Is Account Locked</label>
+                    <div style="display: flex; align-items: center;">
+                        <input type="radio" id="is-locked-yes" name="is-locked" value="yes" {% if user.isAccountLocked %}checked{% endif %}>
+                        <label for="is-locked-yes" style="margin-right: 15px;">Yes</label>
+                        <input type="radio" id="is-locked-no" name="is-locked" value="no" {% if not user.isAccountLocked %}checked{% endif %}>
+                        <label for="is-locked-no">No</label>
+                    </div> {% endcomment %}
+                </div>
+            </div>
+            <button type="submit">Save Changes</button>
+        </form>
+    </main>
+</body>
+</html>

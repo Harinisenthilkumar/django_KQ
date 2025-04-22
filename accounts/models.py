@@ -1,37 +1,4 @@
-# from django.db import models
-# from django.utils import timezone
 
-
-    
-
-# class Adduser(models.Model):
-#     id = models.AutoField(primary_key=True)
-#     USER_ROLE_CHOICES = [
-#         ('candidate', 'Candidate'),
-#         ('sme', 'SME'),
-#         ('examiner', 'Examiner'),
-#         ('admin', 'Admin'),
-#     ]
-#     userRole = models.CharField(max_length=20, choices=USER_ROLE_CHOICES, verbose_name='User Role')
-#     userName = models.CharField(max_length=255, verbose_name='User Name')
-#     employeeId = models.CharField(max_length=100, verbose_name='Employee ID', default='')
-#     department = models.CharField(max_length=100, verbose_name='Department')
-#     designation = models.CharField(max_length=100, verbose_name='Designation')
-#     emailId = models.EmailField(verbose_name='Email ID')
-#     mobileNumber = models.CharField(max_length=10, verbose_name='Mobile Number')
-#     isActive = models.BooleanField(default=True, verbose_name='Is Active')
-#     activeRemarks = models.TextField(blank=True, verbose_name='Active Status Remarks')
-#     isAccountLocked = models.BooleanField(default=False, verbose_name='Is Account Locked')
-#     lockedRemarks = models.TextField(blank=True, verbose_name='Locked Status Remarks')
-#     is_created = models.DateTimeField(default=timezone.now)
-#     is_updated = models.DateTimeField(auto_now=True)
-#     is_deleted = models.BooleanField(default=False)
-
-#     class Meta:
-#         db_table = 'AddUserTable'
-
-#     def __str__(self):
-#         return self.userName
 from django.db import models
 from django.utils import timezone
 
