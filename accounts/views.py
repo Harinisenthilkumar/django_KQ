@@ -38,24 +38,20 @@
 # def add_user_view(request):
 #     return render(request, 'accounts/addusers.html')  
 
-from django.shortcuts import render, redirect, HttpResponse, redirect, get_object_or_404, HttpResponse
-from .models import User 
+from django.shortcuts import render, redirect, get_object_or_404
+
+from .models import User
+
+
 def login_view(request):
     if request.method == 'POST':
-        
+        # Add your login logic here
         return redirect('dashboard')
-
     return render(request, 'accounts/login.html')
 
 
 def dashboard_view(request):
-    return render(request, 'accounts/dashboard.html')
-
-from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
-from .models import User
-
-def dashboard_view(request):
-    users = User.objects.all().values(
+    users = User.objects.filter(is_deleted=False).values(
         'id',
         'userRole',
         'userName',
@@ -63,7 +59,7 @@ def dashboard_view(request):
         'department',
         'designation',
         'mobileNumber',
-        'isActive'
+        'isActive',
     )
     user_data_for_grid = []
     for user in users:
@@ -83,21 +79,23 @@ def dashboard_view(request):
         'rowData': user_data_for_grid,
     }
     return render(request, 'accounts/dashboard.html', context)
+
+
 def add_user_view(request):
     if request.method == 'POST':
-        user_name = request.POST.get('username')  # Use the correct form field name
-        email_id = request.POST.get('email')      # Use the correct form field name
-        user_role = request.POST.get('userrole')  # Use the correct form field name
-        department = request.POST.get('department') # Use the correct form field name
-        designation = request.POST.get('designation') # Use the correct form field name
-        mobile_number = request.POST.get('mobile-number') # Use the correct form field name
+        user_name = request.POST.get('username')
+        email_id = request.POST.get('email')
+        user_role = request.POST.get('userrole')
+        department = request.POST.get('department')
+        employee_id = request.POST.get('employeeId')
+        designation = request.POST.get('designation')
+        mobile_number = request.POST.get('mobile-number')
         is_active_str = request.POST.get('is-active')
         is_active = True if is_active_str == 'yes' else False
         remarks = request.POST.get('remarks')
         is_account_locked_str = request.POST.get('is-locked')
         is_account_locked = True if is_account_locked_str == 'yes' else False
 
-        # Basic validation
         if not user_name or not email_id or not user_role:
             return render(request, 'accounts/addusers.html', {'error': 'Please fill in all required fields.'})
 
@@ -105,28 +103,31 @@ def add_user_view(request):
             userName=user_name,
             emailId=email_id,
             userRole=user_role,
+            employeeId=employee_id,
             department=department,
             designation=designation,
             mobileNumber=mobile_number,
-            isActive=is_active, 
+            isActive=is_active,
             remarks=remarks,
-            isAccountLocked=is_account_locked, 
+            isAccountLocked=is_account_locked,
         )
         return redirect('dashboard')
     return render(request, 'accounts/addusers.html')
+
 
 def edit_user_view(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     if request.method == 'POST':
         user.userRole = request.POST.get('userrole')
         user.userName = request.POST.get('username')
+        user.employeeId = request.POST.get('employeeid') 
         user.department = request.POST.get('department')
         user.designation = request.POST.get('designation')
         user.emailId = request.POST.get('email')
         user.mobileNumber = request.POST.get('mobile-number')
         user.isActive = request.POST.get('is-active') == 'yes'
         user.remarks = request.POST.get('remarks')
-        # user.isAccountLocked = request.POST.get('is-locked') == 'yes'
+        user.isAccountLocked = request.POST.get('is-locked') == 'yes' 
         user.save()
         return redirect('dashboard')
     else:
@@ -135,7 +136,9 @@ def edit_user_view(request, user_id):
         }
         return render(request, 'accounts/edituser.html', context)
 
+
 def delete_user_view(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-    user.delete()
-    return redirect('dashboard')  
+    user.is_deleted = True
+    user.save()
+    return redirect('dashboard')

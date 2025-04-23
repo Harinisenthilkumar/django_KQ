@@ -181,6 +181,7 @@
       border-radius: 4px;
       cursor: pointer;
       font-size: 0.9em; 
+      margin-left:20px;
     }
 
     .add-btn img {
@@ -318,7 +319,7 @@ height: 30px;
               <img src="{% static 'accounts/images/filter_whitebg.svg' %}" >
             </button>
             <button class="add-btn" onclick="goToAddUser()">
-              <img src="{% static 'accounts/images/add.svg' %}" alt="Add" class="icon-img"> Add
+              <img src="{% static 'accounts/images/addicon.svg' %}" alt="Add" class="icon-img"> Add
             </button>
           </div>
         </div>
@@ -348,7 +349,8 @@ height: 30px;
           const deleteIconHtml = `<img src="{% static 'accounts/images/delete.svg' %}" alt="Delete" style="cursor: pointer; width: 25px; height: 25px;" onclick="deleteUser(${params.value}, 'someDeleteValue')">`; // Added an example extra value
 
           return editIconHtml + deleteIconHtml;
-        }},
+        }
+      },
         { headerName: 'User Role', field: 'userRole', minWidth: 100 },
         { headerName: 'User Name', field: 'userName', minWidth: 120 },
         { headerName: 'Email ID', field: 'emailId', width: 200 },
@@ -359,7 +361,8 @@ height: 30px;
           const isAct = params.value === 'Active';
           const statusClass = isAct ? 'status-active' : 'status-inactive';
           return `<div class="${statusClass}">${params.value}</div>`;
-        }},
+        }
+      },
       ],
       rowData: {{ rowData|safe }},
       pagination: true,

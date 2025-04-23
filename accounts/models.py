@@ -34,7 +34,7 @@ class User(models.Model):
     isAccountLocked = models.BooleanField(default=False, verbose_name='Is Account Locked')
     is_created = models.DateTimeField(auto_now_add=True)
     is_updated = models.DateTimeField(auto_now=True)
-    is_deleted = models.BooleanField(default=False)
+    is_deleted = models.BooleanField(default=False )
 
     class Meta:
         db_table = 'users'

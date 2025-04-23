@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-3 -3 46 46"><g id="deeditor_bgCarrier" stroke-width="0">
+    <rect id="dee_c_e" x="-3" y="-3" width="46" height="46" rx="0" fill="#3f2768" strokewidth="0"/>
+  </g>
+  <g id="delete" transform="translate(-978.001 -30)">
+    <g id="logout" transform="translate(978.205 30.459)">
+      <g id="spacer" transform="translate(-0.204 -0.459)" fill="#ffffff" stroke="#ffffff" stroke-width="1" opacity="0">
+        <rect width="40" height="40" stroke="none" fill="#000000"/>
+        <rect x="0.5" y="0.5" width="39" height="39" fill="none"/>
+      </g>
+    </g>
+    <g id="Group_25214" data-name="Group 25214" transform="translate(1007.027 40.973) rotate(90)">
+      <path id="Line_787" data-name="Line 787" d="M0,19.054a1,1,0,0,1-1-1V0A1,1,0,0,1,0-1,1,1,0,0,1,1,0V18.054A1,1,0,0,1,0,19.054Z" transform="translate(9.028 0)" fill="#ffffff"/>
+      <path id="Line_788" data-name="Line 788" d="M18.054,1H0A1,1,0,0,1-1,0,1,1,0,0,1,0-1H18.054a1,1,0,0,1,1,1A1,1,0,0,1,18.054,1Z" transform="translate(0 9.028)" fill="#ffffff"/>
+    </g>
+  </g>
+</svg>
