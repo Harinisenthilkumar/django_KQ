@@ -109,6 +109,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="stylesheet" href="{% static 'accounts/css/login.css' %}">
   <title>Login</title>
+  <style>
+    .error-message {
+      color: red;
+      font-size: 0.8em;
+      margin-top: 5px;
+    }
+    .toggle-password-icon {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+    }
+  </style>
 </head>
 <body>
   <div class="background-wrapper">
@@ -126,8 +142,10 @@
 
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
-            <img src="{% static 'accounts/images/eye-close.svg' %}" alt="Toggle Password" id="togglePassword" class="toggle-password-icon">
+            <div style="position: relative;">
+              <input type="password" id="password" name="password" required>
+              <img src="{% static 'accounts/images/eye-close.svg' %}" alt="Toggle Password" id="togglePassword" class="toggle-password-icon">
+            </div>
             <a href="#" class="forgot-password">Forgot Password?</a>
             <p class="error-message" id="passwordError"></p>
           </div>
@@ -146,8 +164,6 @@
     </div>
   </div>
 
-
-
   <script>
     document.addEventListener("DOMContentLoaded", function () {
         const passwordInput = document.getElementById("password");
@@ -159,15 +175,13 @@
 
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~!@#$%\-_\\-])[A-Za-z\d~!@#$%\-_\\-]{8,}$/;
         const emailPattern = /^[\w-\.]+@(gmail\.com|\.in|yahoo\.com)$/;
+        const eyeOpenSrc = "{% static 'accounts/images/eye.svg' %}"; // Ensure this path is correct
+        const eyeCloseSrc = "{% static 'accounts/images/eye-close.svg' %}";
 
         toggleIcon.addEventListener("click", function () {
             const isPassword = passwordInput.type === "password";
             passwordInput.type = isPassword ? "text" : "password";
-           
-            const icon = toggleIcon.querySelector('svg');
-            icon.classList.toggle('lucide-eye', isPassword);
-            icon.classList.toggle('lucide-eye-off', !isPassword);
-
+            toggleIcon.src = isPassword ? eyeOpenSrc : eyeCloseSrc;
         });
 
         loginForm.addEventListener("submit", function (event) {
@@ -188,12 +202,8 @@
                 passwordError.textContent = "";
             }
 
-            if (isEmailValid && isPasswordValid) {
-                localStorage.setItem('email', emailInput.value);
-                localStorage.setItem('password', passwordInput.value);
-                
-            } else {
-                event.preventDefault();
+            if (!isEmailValid || !isPasswordValid) {
+                event.preventDefault(); // Prevent form submission if validation fails
             }
         });
     });

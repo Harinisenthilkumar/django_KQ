@@ -1,155 +1,3 @@
-{% comment %} {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width-device-width, initial-scale=1.0">
-    <title>Add User</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="{% static 'accounts/css/addusers.css' %}">
-</head>
-<body>
-        <div class="sidebar">
-        <div class="logo-section">
-            <div class="logo-circle">
-                <img src="{% static 'accounts/images/l1.svg' %}" alt="Logo" class="logo">
-            </div>
-            <img src="{% static 'accounts/images/filter_whitebg.svg' %}" alt="Filter" class="filter-icon">
-        </div>
-        <nav class="nav-links">
-            <ul>
-                <li><img src="{% static 'accounts/images/dashboard_whitebg.svg' %}" class="icon-img"> Dashboard</li>
-                <li><img src="{% static 'accounts/images/question_bank_whitebg.svg' %}" class="icon-img"> Question Bank</li>
-                <li class="active"><img src="{% static 'accounts/images/users_whitebg.svg' %}" class="icon-img"> Users</li>
-                <li><img src="{% static 'accounts/images/blueprint_whitebg.svg' %}" class="icon-img"> Blueprint</li>
-                <li><img src="{% static 'accounts/images/assessment_whitebg.svg' %}" class="icon-img"> Assessment</li>
-                <li><img src="{% static 'accounts/images/assignment_whitebg.svg' %}" class="icon-img"> Assignment</li>
-                <li><img src="{% static 'accounts/images/reports_whitebg.svg' %}" class="icon-img"> Reports</li>
-                <li><img src="{% static 'accounts/images/logout_whitebg.svg' %}" class="icon-img"> Logout</li>
-            </ul>
-        </nav>
-        <div class="sidebar-image">
-            <img src="{% static 'accounts/images/Rectangle 14.png' %}" alt="Sidebar Banner">
-        </div>
-    </div>
-    <main class="main-content-container">
-        <div class="add-user-content">
-            <form>
-                <div class="form-header">
-                    <h2>Add User</h2>
-                    
-                </div>
-                <div>
-                    <label for="userrole" class="block text-gray-700 text-sm font-bold mb-2">User Role <span style="color: #E80000;">*</span></label>
-                    <select id="userrole" class="user shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-                       
-                        <option value="candidate">Candidate</option>
-                        <option value="sme">SME</option>
-                        <option value="examiner">Examiner</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                    <p id="userroleError" class="text-red-500 text-xs italic"></p> </div>
-                <div class="two-column-form">
-                    <div class="form-group">
-                        <label for="username">User Name <span style="color: #E80000;">*</span></label>
-                        <input type="text" id="username" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="employee-id">Employee ID <span style="color: #E80000;">*</span></label>
-                        <input type="text" id="employee-id" class="form-control" required>
-                    </div>
-                </div>
-                <div class="two-column-form">
-                    <div class="form-group">
-                        <label for="department">Department <span style="color: #E80000;">*</span></label>
-                        <div class="input-group">
-                            <select id="department" class="form-control" required>
-                                <option value="" disabled selected>Select</option>
-                                <option value="hr">Tech</option>
-                                <option value="engineering">Quality Check</option>
-                                <option value="marketing">Media</option>
-                                <option value="marketing">Business Development</option>
-                            </select>
-                            <div class="input-group-icon add-icon">
-                                <img src="{% static 'accounts/images/add.svg' %}" alt="Add">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="designation">Designation <span style="color: #E80000;">*</span></label>
-                        <div class="input-group">
-                            <select id="department" class="form-control" required>
-                                <option value="" disabled selected>Select</option>
-                                <option value="hr">Developer</option>
-                                <option value="engineering">QC Analysis </option>
-                                <option value="marketing">Business Development Executive </option>
-                                
-                            </select>
-                            
-                            <input type="text" id="designation" class="form-control" required>
-                            <div class="input-group-icon add-icon">
-                                <img src="{% static 'accounts/images/add.svg' %}" alt="Add">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="two-column-form">
-                    <div class="form-group">
-                        <label for="email">Email ID <span style="color: #E80000;">*</span></label>
-                        <input type="email" id="email" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="mobile-number">Mobile Number <span style="color: #E80000;">*</span></label>
-                        <input type="tel" id="mobile-number" class="form-control" required>
-                    </div>
-                </div>
-                <div class="two-column-form">
-                    <div class="form-group">
-                        <label>Is Active <span style="color: #E80000;">*</span></label>
-                        <div class="radio-group">
-                            <label>
-                                <input type="radio" name="is-active" class="radio-input" value="yes" required> Yes
-                            </label>
-                            <label>
-                                <input type="radio" name="is-active" class="radio-input" value="no" required> No
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="remarks">Remarks</label>
-                        <input type="text" id="remarks" class="form-control" >
-                    </div>
-                </div>
-                <div class="two-column-form">
-                    <div class="form-group">
-                        <label>Is Account Locked <span>*</span></label>
-                        <div class="radio-group">
-                            <label>
-                                <input type="radio" name="is-locked" class="radio-input" value="yes" required> Yes
-                            </label>
-                            <label>
-                                <input type="radio" name="is-locked" class="radio-input" value="no" required> No
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="remarks">Remarks</label>
-                        <input type="text" id="remarks" class="form-control">
-                    </div>
-                </div>
-                <div class="form-footer">
-                    <button type="submit" class="btn btn-primary">Save</button>
-                    <button type="button" class="btn btn-secondary">Cancel</button>
-                </div>
-            </form>
-        </div>
-    </main>
-</div>
-</body>
-</html> {% endcomment %}
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -160,6 +8,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{% static 'accounts/css/addusers.css' %}">
+    <style>
+        .error-message {
+            color: red;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
         <div class="sidebar">
@@ -187,7 +42,7 @@
     </div>
     <main class="main-content-container">
         <div class="add-user-content">
-            <form method="post" action="{% url 'add_user' %}">
+            <form method="post" action="{% url 'add_user' %}" onsubmit="return validateForm()">
                 {% csrf_token %}
                 <div class="form-header">
                     <h2>Add User</h2>
@@ -195,7 +50,7 @@
                 </div>
                 <div>
                     <label for="userrole" class="block text-gray-700 text-sm font-bold mb-2">User Role <span style="color: #E80000;">*</span></label>
-                    <select id="userrole" name="userrole" class="user shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                    <select id="userrole" name="userrole" class="user" required>
 
                         <option value="candidate">Candidate</option>
                         <option value="sme">SME</option>
@@ -232,16 +87,12 @@
                     <div class="form-group">
                         <label for="designation">Designation <span style="color: #E80000;">*</span></label>
                         <div class="input-group">
-                            <select id="department" name="designation" class="form-control" required>
+                            <select id="designation" name="designation" class="form-control" required>
                                 <option value="" disabled selected>Select</option>
                                 <option value="developer">Developer</option>
                                 <option value="qc_analysis">QC Analysis </option>
                                 <option value="business_development_executive">Business Development Executive </option>
-
-
                             </select>
-
-
                             <div class="input-group-icon add-icon">
                                 <img src="{% static 'accounts/images/add.svg' %}" alt="Add">
                             </div>
@@ -251,11 +102,13 @@
                 <div class="two-column-form">
                     <div class="form-group">
                         <label for="email">Email ID <span style="color: #E80000;">*</span></label>
-                        <input type="email" id="email" name="email" class="form-control" required>
+                        <input type="email" id="email" name="email" class="form-control" required onblur="validateEmail()">
+                        <p id="emailError" class="error-message"></p>
                     </div>
                     <div class="form-group">
                         <label for="mobile-number">Mobile Number <span style="color: #E80000;">*</span></label>
-                        <input type="tel" id="mobile-number" name="mobile-number" class="form-control" required>
+                        <input type="tel" id="mobile-number" name="mobile-number" class="form-control" required onblur="validateMobileNumber()">
+                        <p id="mobileNumberError" class="error-message"></p>
                     </div>
                 </div>
                 <div class="two-column-form">
@@ -301,5 +154,41 @@
         </div>
     </main>
 </div>
+
+<script>
+    function validateEmail() {
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('emailError');
+        const emailPattern = /^[\w-\.]+@(gmail\.com|\.in|yahoo\.com)$/;
+
+        if (!emailPattern.test(emailInput.value)) {
+            emailError.textContent = 'Please enter a valid email address (ending with @gmail.com, .in, or @yahoo.com).';
+            return false;
+        } else {
+            emailError.textContent = '';
+            return true;
+        }
+    }
+
+    function validateMobileNumber() {
+        const mobileInput = document.getElementById('mobile-number');
+        const mobileError = document.getElementById('mobileNumberError');
+        const mobilePattern = /^\d{10}$/;
+
+        if (!mobilePattern.test(mobileInput.value)) {
+            mobileError.textContent = 'Please enter a valid 10-digit mobile number.';
+            return false;
+        } else {
+            mobileError.textContent = '';
+            return true;
+        }
+    }
+
+    function validateForm() {
+        const isEmailValid = validateEmail();
+        const isMobileValid = validateMobileNumber();
+        return isEmailValid && isMobileValid;
+    }
+</script>
 </body>
 </html>
