@@ -42,7 +42,7 @@
     </div>
     <main class="main-content-container">
         <div class="add-user-content">
-            <form method="post" action="{% url 'add_user' %}" onsubmit="showAlert()">
+            <form method="post" action="{% url 'add_user' %}" onsubmit="return validateForm()">
                 {% csrf_token %}
                 <div class="form-header">
                     <h2>Add User</h2>
@@ -156,7 +156,6 @@
 </div>
 
 <script>
-    
     function validateEmail() {
         const emailInput = document.getElementById('email');
         const emailError = document.getElementById('emailError');
@@ -189,13 +188,6 @@
         const isEmailValid = validateEmail();
         const isMobileValid = validateMobileNumber();
         return isEmailValid && isMobileValid;
-    }
-
-    function showAlert() {
-        if (validateForm()) {
-            alert('User data added successfully');
-        }
-    
     }
 </script>
 </body>

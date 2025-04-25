@@ -1,8 +1,9 @@
-
 from django.db import models
 from django.utils import timezone
 
+
 class User(models.Model):
+    
     id = models.AutoField(primary_key=True)
     USER_ROLE_CHOICES = [
         ('candidate', 'Candidate'),
@@ -24,20 +25,36 @@ class User(models.Model):
         ('developer', 'Developer'),
         ('qc_analysis', 'QC Analysis'),
         ('business_development_executive', 'Business Development Executive'),
-       
+
     ]
     designation = models.CharField(max_length=100, choices=DESIGNATION_CHOICES, verbose_name='Designation')
-    emailId = models.EmailField(verbose_name='Email ID')
+    emailId = models.EmailField(verbose_name='Email ID',unique=True)
+   
     mobileNumber = models.CharField(max_length=20, verbose_name='Mobile Number')
     isActive = models.BooleanField(default=True, verbose_name='Is Active')
     remarks = models.TextField(blank=True, null=True, verbose_name='Remarks')
+   
+
     isAccountLocked = models.BooleanField(default=False, verbose_name='Is Account Locked')
     is_created = models.DateTimeField(auto_now_add=True)
     is_updated = models.DateTimeField(auto_now=True)
     is_deleted = models.BooleanField(default=False )
+
 
     class Meta:
         db_table = 'users'
 
     def __str__(self):
         return self.userName
+    
+
+
+class LoginCredentials(models.Model):
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=255) 
+
+    class Meta:
+        db_table = 'login_credentials'
+
+    def __str__(self):
+        return self.email
