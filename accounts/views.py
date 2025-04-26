@@ -121,6 +121,7 @@ def edit_user_view(request, user_id):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+
 @api_view(['GET', 'PUT'])
 def user_detail_view(request, pk):
     try:
