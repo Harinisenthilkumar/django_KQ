@@ -1,8 +1,8 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import AbstractUser
 
-
-class User(models.Model):
+class User(AbstractUser):
     
     id = models.AutoField(primary_key=True)
     USER_ROLE_CHOICES = [
@@ -12,7 +12,7 @@ class User(models.Model):
         ('admin', 'Admin'),
     ]
     userRole = models.CharField(max_length=20, choices=USER_ROLE_CHOICES, verbose_name='User Role')
-    userName = models.CharField(max_length=255, verbose_name='User Name')
+    # userName = models.CharField(max_length=255, verbose_name='User Name')
     employeeId = models.CharField(max_length=100, verbose_name='Employee ID', default='')
     DEPARTMENT_CHOICES = [
         ('tech', 'Tech'),
@@ -26,7 +26,7 @@ class User(models.Model):
         ('qc_analysis', 'QC Analysis'),
         ('business_development_executive', 'Business Development Executive'),
 
-    ]
+    ] 
     designation = models.CharField(max_length=100, choices=DESIGNATION_CHOICES, verbose_name='Designation')
     emailId = models.EmailField(verbose_name='Email ID',unique=True)
    
@@ -38,18 +38,19 @@ class User(models.Model):
     isAccountLocked = models.BooleanField(default=False, verbose_name='Is Account Locked')
     is_created = models.DateTimeField(auto_now_add=True)
     is_updated = models.DateTimeField(auto_now=True)
-    is_deleted = models.BooleanField(default=False )
+    is_deleted = models.BooleanField(default=False)
 
 
     class Meta:
         db_table = 'users'
 
     def __str__(self):
-        return self.userName
+        return self.username
     
 
 
 class LoginCredentials(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='login_credentials')
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=255) 
 
