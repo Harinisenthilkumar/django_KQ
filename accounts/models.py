@@ -1,8 +1,8 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import AbstractUser
+# from django.contrib.auth.models import AbstractUser
 
-class User(AbstractUser):
+class User(models.Model):
     id = models.AutoField(primary_key=True)
 
     USER_ROLE_CHOICES = [
@@ -13,7 +13,7 @@ class User(AbstractUser):
     ]
     userRole = models.CharField(max_length=20, choices=USER_ROLE_CHOICES, verbose_name='User Role')
 
-    username = models.CharField(max_length=255, verbose_name='User Name', null=True, blank=True,unique=True)
+    userName = models.CharField(max_length=255, verbose_name='User Name', null=True, blank=True,unique=True)
 
     employeeId = models.CharField(max_length=100, verbose_name='Employee ID', default='')
 
@@ -44,12 +44,12 @@ class User(AbstractUser):
     is_created = models.DateTimeField(auto_now_add=True)
     is_updated = models.DateTimeField(auto_now=True)
     is_deleted = models.BooleanField(default=False)
-
+    
     class Meta:
         db_table = 'users'
 
     def __str__(self):
-        return self.username
+        return self.userName
     
 
 

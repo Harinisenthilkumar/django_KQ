@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'kqproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'demotest',
+        'NAME': 'testing',
         'USER': 'root',
         'PASSWORD': '123Asd!@#',
         'HOST': 'localhost', 
@@ -143,5 +143,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'login'  # Redirect here if user is not authenticated
 LOGIN_REDIRECT_URL = 'dashboard'  # Redirect here after successful login
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
+}
 
-AUTH_USER_MODEL = 'accounts.User'
+# AUTH_USER_MODEL = 'accounts.User'
