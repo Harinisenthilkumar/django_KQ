@@ -640,14 +640,16 @@
     
         document.getElementById("saveButton").addEventListener("click", function (e) {
             e.preventDefault();
-    
+        
+            // Validate the form before sending data
             if (!validateForm()) {
                 return;
             }
-    
+        
             const userId = "{{ user.id }}"; 
             const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-    
+        
+            // Prepare the data to send to the backend
             const data = {
                 userRole: document.getElementById("userrole").value,
                 userName: document.getElementById("username").value,
@@ -660,25 +662,37 @@
                 remarks: document.getElementById("remarks").value,
                 isAccountLocked: document.querySelector('input[name="is-locked"]:checked').value === 'yes',
             };
-    
-            axios.put(`http://127.0.0.1:8000/api/users/${userId}/`, updatedData)
- {
+            console.log("@@@@@@@@@@@@@@@@@@@@@@@@2",data);
+        
+            // Send the PUT request to update the user
+            fetch(`http://127.0.0.1:8000/accounts/users/edit/${userId}/`, {
+                method: "PUT",
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,
-                }
+                },
+                body: JSON.stringify(data), // Add the body with the data
             })
             .then(response => {
-                console.log(response.data);
-                alert('User updated successfully!');
-                // Optionally, redirect after success:
-                window.location.href = '/users/'; 
+                if (response.ok) {
+                    console.log('User updated successfully!');
+                    alert('User updated successfully!');
+                    // Optionally, redirect after success:
+                    window.location.href = '/accounts/dashboard/'
+                } else {
+                    return response.json().then(data => { throw new Error(data.error || 'Something went wrong'); });
+                    console.log('@@@@@@@@@')
+                }
             })
             .catch(error => {
-                console.error(error);
+                console.error('Error:', error);
                 alert('Something went wrong. Please try again.');
+                console.log('%%%%%%%%%%')
             });
         });
+        
+            
+        
     </script>
     
 </body>

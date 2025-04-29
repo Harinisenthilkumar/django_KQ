@@ -7,47 +7,16 @@ from rest_framework import status
 from .models import User, LoginCredentials
 from .serializers import UserSerializer
 from django.http import JsonResponse
-
-
-
 from django.contrib.auth import authenticate
-
-# from django.contrib.auth.models import User
-
-
-
 from django.views.decorators.csrf import csrf_exempt
 import jwt
 from django.conf import settings
-
 from django.contrib.auth import get_user_model
-User = get_user_model()
 
-DEFAULT_ADMIN_EMAIL = 'admin01@gmail.com'
-DEFAULT_ADMIN_PASSWORD = 'Admin@01'
 
-def login_view(request):
-    if request.method == 'POST':
-        email = request.POST.get('username')
-        password = request.POST.get('password')
+# from django.contrib.auth.models import User
 
-        try:
-            credentials = LoginCredentials.objects.get(email=email, password=password)
-            user = User.objects.get(emailId=email)
-
-            request.session['user_id'] = user.id
-            request.session['user_name'] = user.userName
-
-            messages.success(request, f"Welcome, {user.userName}!")
-            return redirect('dashboard')
-
-        except LoginCredentials.DoesNotExist:
-            messages.error(request, 'Invalid email or password.')
-        except User.DoesNotExist:
-            messages.error(request, 'User not found for the given email.')
-
-    return render(request, 'accounts/login.html')
-
+#Template Views
 def dashboard_view(request):
     return render(request, 'accounts/dashboard.html')
 
@@ -60,70 +29,43 @@ def edit_user_view(request, user_id):
 
 
 
+#API Views
+User = get_user_model()
 
+# DEFAULT_ADMIN_EMAIL = 'admin01@gmail.com'
+# DEFAULT_ADMIN_PASSWORD = 'Admin@01'
+#Login Create API
+def login_view(request):
+    if request.method == 'POST':
+        email = request.POST.get('username')
+        password = request.POST.get('password')
 
+        try:
+            credentials = LoginCredentials.objects.get(email=email, password=password)
+            user = User.objects.get(emailId=email)
 
+            request.session['user_id'] = user.id
+            request.session['user_name'] = user.username
 
+            messages.success(request, f"Welcome, {user.username}!")
+            return redirect('dashboard')
 
+        except LoginCredentials.DoesNotExist:
+            messages.error(request, 'Invalid email or password.')
+        except User.DoesNotExist:
+            messages.error(request, 'User not found for the given email.')
 
-
-
-
-
-
-# @api_view(['GET', 'POST'])
-# def user_list_create(request):
-#     if request.method == 'GET':
-#         # users = User.objects.filter(is_deleted=False)
-#         users = User.objects.all()
-        
-        
-        
-#         serializer = UserSerializer(users, many=True)
-#         return Response(serializer.data)
-#     elif request.method == 'POST':
-#         serializer = UserSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return render(request, 'accounts/login.html')
     
-# @api_view(['GET', 'POST'])
-# def user_list_create(request):
-#     if request.method == 'GET':
-#         users = User.objects.all()
-#         serializer = UserSerializer(users, many=True)
-#         return Response(serializer.data)
-
-#     elif request.method == 'POST':
-#         data = request.data.copy()
-
-#         # ✅ Ensure 'username' exists for AbstractUser
-#         if 'username' not in data or not data['username']:
-#             return Response({"error": "Username is required"}, status=status.HTTP_400_BAD_REQUEST)
-
-#         serializer = UserSerializer(data=data)
-#         if serializer.is_valid():
-#             user = serializer.save()
-
-#             # ✅ Save LoginCredentials also
-#             LoginCredentials.objects.create(
-#                 user=user,
-#                 email=user.emailId,
-#                 password=data.get('password') or 'Default@123'
-#             )
-
-#             return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)
-        
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
     
+#List Grid User API 
 @api_view(['GET'])
 def get_user_list(request):
     users = User.objects.all()
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
-
+    
+#Create User    
 @api_view(['POST'])
 def create_user(request):
     data = request.data.copy()
@@ -137,41 +79,51 @@ def create_user(request):
         user = serializer.save()
 
         # ✅ Save LoginCredentials also
-        # LoginCredentials.objects.create(
-        #     user=user,
-        #     email=user.emailId,
-        #     password=data.get('password') or 'Default@123'
-        # )
+        LoginCredentials.objects.create(
+            user=user,
+            email=user.emailId,
+            password=data.get('password') or 'Default@123'
+        )
 
         return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     
-
-
-@api_view(['GET', 'PUT'])
-def user_detail_view(request, user_id):
+@api_view(['PUT'])
+def user_edit(request, user_id):
+    print("hitted@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     try:
         user = User.objects.get(pk=user_id)
+        print(user,"!!!!!!!!!!!!!!!!!!!!")
     except User.DoesNotExist:
         return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
 
-    if request.method == 'GET':
-        serializer = UserSerializer(user)
-        return Response(serializer.data)
-    elif request.method == 'PUT':
-        serializer = UserSerializer(user, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({'message': 'User updated successfully!'})
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    
-    
-    
-    
-    
+    # Handle partial updates (update only the fields provided)
+    serializer = UserSerializer(user, data=request.data, partial=True)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response({'message': 'User updated successfully!'}, status=status.HTTP_200_OK)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# @api_view(['GET', 'PUT'])
+# def user_detail_view(request, user_id):
+#     try:
+#         user = User.objects.get(pk=user_id)
+#     except User.DoesNotExist:
+#         return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
+#     if request.method == 'GET':
+#         serializer = UserSerializer(user)
+#         return Response(serializer.data)
+#     elif request.method == 'PUT':
+#         serializer = UserSerializer(user, data=request.data, partial=True)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response({'message': 'User updated successfully!'})
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
 def user_delete(request, user_id):
