@@ -42,7 +42,7 @@ def jwt_required(view_func):
 #Template Views
 @jwt_required
 def dashboard_view(request):
-    return render(request, 'accounts/dashboard.html')
+    return render(request, 'accounts/dashboard.html')\
         
 @jwt_required
 def add_user_view(request):
@@ -89,13 +89,15 @@ def login_view(request):
             # Create simple JWT payload without expiry
             payload = {
                 'id': user.id,
+                'emailId': user.emailId,
                 'iat': datetime.datetime.utcnow()
                 # No 'exp' field now
             }
-            SECRET_KEY = 'faeb0b9bdbee43c2bfde7c1e13556f73eed13a4197248aadc3524247303bb3c8'
+            SECRET_KEY = 'django-insecure-*n-0cm1bk_3ti(f^agvd&gkv6upaweac)2l=#!f4c7eqqyo5b8'
+            
             # ✅ Encode the token
             token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
-
+            print("testtt",token)
             # ✅ Set the cookie without expiry
             response = redirect('dashboard')
             response.set_cookie(
