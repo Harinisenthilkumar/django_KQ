@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KQ Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 240px;
+            background-color: #3F2768;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+            z-index: 10;
+        }
+
+        .logo-section {
+            text-align: left;
+            padding: 0 20px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-circle {
+            background-color: white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo {
+            width: 30px;
+            height: 30px;
+        }
+
+        .filter-icon {
+            margin-top: -30px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .nav-links ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+
+        .nav-links li {
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 0.9em;
+        }
+
+        .nav-links li.active {
+            background-color: #EB8022;
+            font-weight: bold;
+            border-left: 4px solid white;
+        }
+
+        .nav-links li:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .icon-img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .sidebar-image {
+            margin-top: auto;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-image img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 240px;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .top-container {
+            width: 100%;
+            background: #FFFFFF;
+            box-shadow: 0px 20px 30px #3F276824;
+            border: 1px solid #D4CDE1;
+            border-radius: 30px;
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: linear-gradient(180deg, #5B2EA8 0%, #250163 100%);
+            box-shadow: 0px 20px 30px #3F276824;
+            border-radius: 20px;
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30%;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .card p {
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .chart-container {
+            background: #FFFFFF;
+            box-shadow: 0px 20px 30px #3F276824;
+            border: 1px solid #D4CDE1;
+            border-radius: 30px;
+            padding: 20px;
+            box-sizing: border-box;
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 300px;
+        }
+
+        canvas {
+            width: 100% !important;
+            height: 100% !important;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .top-container {
+                flex-direction: column;
+            }
+
+            .card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo-section">
+                <div class="logo-circle">
+                    <img src="" alt="Logo" class="logo">
+                </div>
+                <img src="" alt="Filter" class="filter-icon">
+            </div>
+            <nav class="nav-links">
+                <ul>
+                    <li><img src="" class="icon-img"> Dashboard</li>
+                    <li><img src="" class="icon-img"> Question Bank</li>
+                    <li class="active"><img src="" class="icon-img"> Users</li>
+                    <li><img src="" class="icon-img"> Blueprint</li>
+                    <li><img src="" class="icon-img"> Assessment</li>
+                    <li><img src="" class="icon-img"> Assignment</li>
+                    <li><img src="" class="icon-img"> Reports</li>
+                    <li><img src="" class="icon-img"> Logout</li>
+                </ul>
+            </nav>
+            <div class="sidebar-image">
+                <img src="" alt="Sidebar Banner">
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="top-container">
+                <div class="card">
+                    <h2>No of Department</h2>
+                    <h1>10</h1>
+                </div>
+                <div class="card">
+                    <h2>No of Users</h2>
+                    <p>Active: 95 | Inactive: 5</p>
+                    <h1>100</h1>
+                </div>
+                <div class="card">
+                    <h2>SME: 05 | Examiner: 05</h2>
+                    <h3>Employees: 90</h3>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="userChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('userChart').getContext('2d');
+        const userChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Technical', 'Quality Check', 'B.D', 'Media', 'Process Associate', 'P.M'],
+                datasets: [
+                    {
+                        label: 'No of Users',
+                        backgroundColor: '#5B2EA8',
+                        data: [90, 70, 90, 60, 85, 50]
+                    },
+                    {
+                        label: 'Active',
+                        backgroundColor: '#3CB371',
+                        data: [75, 65, 85, 55, 60, 45]
+                    },
+                    {
+                        label: 'Inactive',
+                        backgroundColor: '#DC143C',
+                        data: [5, 5, 5, 5, 5, 5]
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

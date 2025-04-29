@@ -303,6 +303,12 @@
                       <img src="{% static 'accounts/images/dashboard_whitebg.svg' %}" class="icon-img" />
                       Dashboard
                   </li>
+                  {% comment %} <li>
+                   <a href="{% url 'dashboard_home' %}">
+                        <img src="{% static 'accounts/images/dashboard_whitebg.svg' %}" class="icon-img" />
+                        Dashboard
+                    </a>
+                </li>  {% endcomment %}
                   <li>
                       <img src="{% static 'accounts/images/question_bank_whitebg.svg' %}" class="icon-img" />
                       Question Bank
@@ -328,9 +334,9 @@
                       Reports
                   </li>
                   <li>
-                      <img src="{% static 'accounts/images/logout_whitebg.svg' %}" class="icon-img" />
-                      Logout
-                  </li>
+                    <img src="{% static 'accounts/images/logout_whitebg.svg' %}" class="icon-img" />
+                    Logout
+                </li>
               </ul>
           </nav>
           <div class="sidebar-image">

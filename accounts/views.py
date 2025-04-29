@@ -6,7 +6,6 @@ from rest_framework import status
 from .models import User, LoginCredentials
 from .serializers import UserSerializer
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 import datetime
 from functools import wraps
 import jwt
@@ -18,6 +17,7 @@ from rest_framework import status
 from .models import User, LoginCredentials
 from .serializers import UserSerializer
 from django.views.decorators.csrf import csrf_exempt
+
 
 def jwt_required(view_func):
     @wraps(view_func)
@@ -42,7 +42,8 @@ def jwt_required(view_func):
 #Template Views
 @jwt_required
 def dashboard_view(request):
-    return render(request, 'accounts/dashboard.html')\
+    return render(request, 'accounts/dashboard.html')
+
         
 @jwt_required
 def add_user_view(request):
@@ -53,28 +54,19 @@ def edit_user_view(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     return render(request, 'accounts/edituser.html', {'user': user})
 
+
+
+
+
+# @jwt_required
+# def dashboard_home_view(request):
+#     return redirect('dashboard_home')
+
+
+
+
+
 #API Views
-# def login_view(request):
-#     if request.method == 'POST':
-#         email = request.POST.get('username')
-#         password = request.POST.get('password')
-
-#         try:
-#             credentials = LoginCredentials.objects.get(email=email, password=password)
-#             user = User.objects.get(emailId=email)
-
-#             request.session['user_id'] = user.id
-#             request.session['user_name'] = user.userName
-
-#             messages.success(request, f"Welcome, {user.userName}!")
-#             return redirect('dashboard')
-
-#         except LoginCredentials.DoesNotExist:
-#             messages.error(request, 'Invalid email or password.')
-#         except User.DoesNotExist:
-#             messages.error(request, 'User not found for the given email.')
-
-#     return render(request, 'accounts/login.html')
 
 @csrf_exempt
 def login_view(request):
@@ -95,16 +87,16 @@ def login_view(request):
             }
             SECRET_KEY = 'django-insecure-*n-0cm1bk_3ti(f^agvd&gkv6upaweac)2l=#!f4c7eqqyo5b8'
             
-            # ✅ Encode the token
+            #  Encode the token
             token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
             print("testtt",token)
-            # ✅ Set the cookie without expiry
+            #  Set the cookie without expiry
             response = redirect('dashboard')
             response.set_cookie(
                 key='jwt',
                 value=token,
                 httponly=True
-                # No max_age or expires → cookie becomes a "session cookie"
+                
             )
 
             return response
@@ -154,28 +146,6 @@ def create_user(request):
         print(e)
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-# @csrf_exempt
-# @api_view(['POST'])
-# def create_user(request):
-#     data = request.data.copy()
-#     print("Incoming Data =====>")
-#     print(data) 
-#     print("Serializer Errors =====>")
-
-#     serializer = UserSerializer(data=data)
-#     if serializer.is_valid():
-#         user = serializer.save()
-
-#         LoginCredentials.objects.create(
-#             user=user,
-#             email=user.emailId,
-#             password=data.get('password') or 'Default@123'
-#         )
-
-#         return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)
-#     else:
-#         print(serializer.errors)  # 🔥 Print serializer errors
-#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @jwt_required  
@@ -194,6 +164,10 @@ def user_edit(request, user_id):
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+
+
+
 @jwt_required  
 @api_view(['DELETE'])
 def user_delete(request, user_id):
@@ -206,10 +180,18 @@ def user_delete(request, user_id):
     user.save()
     return Response({'message': 'User deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
 
+
+
+
+
+
 @jwt_required  
 def edit_user_page(request, user_id):
     user = get_object_or_404(User, id=user_id)
     return render(request, 'accounts/edituser.html', {'user': user})
+
+
+
 
 @jwt_required  
 def dashboard(request):
@@ -221,3 +203,12 @@ def dashboard(request):
     except Exception:
         return redirect('/accounts/login/')
     return render(request, 'accounts/dashboard.html')
+
+
+
+
+@csrf_exempt
+def logout_view(request):
+    response = redirect('login') 
+    response.delete_cookie('jwt') 
+    return response
