@@ -262,7 +262,7 @@
           isActive: document.querySelector('input[name="is-active"]:checked')?.value === "yes",
           remarks: document.getElementById("remarks").value,
           isAccountLocked: document.querySelector('input[name="is-locked"]:checked')?.value === "yes",
-          password: "Default@123" // ✅ send a password always because Django needs it!
+          password: "Default@123" 
       };
   
         fetch("http://127.0.0.1:8000/accounts/create_user", {

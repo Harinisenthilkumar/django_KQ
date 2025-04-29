@@ -233,3 +233,49 @@ td {
 .ag-theme-alpine .ag-cell[col-id="actions"] img:first-child {
   margin-right: 10px;
 }
+.nav-links li {
+  transition: background 0.3s;
+}
+
+.nav-links li:hover {
+  background-color: #f0f0f0;
+  border-radius: 8px;
+}
+
+
+
+/* Delete CSS */
+
+.modal {
+  display: none; /* will be set to 'block' in JS */
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  background-color: white;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+}
+
+.modal-buttons button {
+  margin: 10px;
+  padding: 10px 20px;
+}
+
+.delete-icon {
+  width: 80px;
+  margin-bottom: 15px;
+}
+
+
+
+

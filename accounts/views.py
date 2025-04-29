@@ -7,8 +7,6 @@ from .models import User, LoginCredentials
 from .serializers import UserSerializer
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-import jwt
-from django.conf import settings
 import datetime
 from functools import wraps
 import jwt
@@ -36,7 +34,7 @@ def jwt_required(view_func):
             return redirect('/accounts/login/')
         except jwt.DecodeError:
             return redirect('/accounts/login/')
-
+        print(token)
         return view_func(request, *args, **kwargs)
     return wrapped_view
 
@@ -44,7 +42,7 @@ def jwt_required(view_func):
 #Template Views
 @jwt_required
 def dashboard_view(request):
-    return render(request, 'accounts/dashboard.html')\
+    return render(request, 'accounts/dashboard.html')
         
 @jwt_required
 def add_user_view(request):
@@ -88,15 +86,15 @@ def login_view(request):
             credentials = LoginCredentials.objects.get(email=email, password=password)
             user = User.objects.get(emailId=email)
 
-            # ✅ Create simple JWT payload without expiry
+            # Create simple JWT payload without expiry
             payload = {
                 'id': user.id,
                 'iat': datetime.datetime.utcnow()
                 # No 'exp' field now
             }
-
+            SECRET_KEY = 'faeb0b9bdbee43c2bfde7c1e13556f73eed13a4197248aadc3524247303bb3c8'
             # ✅ Encode the token
-            token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
+            token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
             # ✅ Set the cookie without expiry
             response = redirect('dashboard')
@@ -221,4 +219,3 @@ def dashboard(request):
     except Exception:
         return redirect('/accounts/login/')
     return render(request, 'accounts/dashboard.html')
- 
