@@ -42,8 +42,7 @@ def jwt_required(view_func):
 #Template Views
 @jwt_required
 def dashboard_view(request):
-    return render(request, 'accounts/dashboard.html')
-
+    return render(request, 'accounts/dashboard.html')\
         
 @jwt_required
 def add_user_view(request):
@@ -55,19 +54,6 @@ def edit_user_view(request, user_id):
     return render(request, 'accounts/edituser.html', {'user': user})
 
 
-
-
-
-# @jwt_required
-# def dashboard_home_view(request):
-#     return redirect('dashboard_home')
-
-
-
-
-
-#API Views
-
 @csrf_exempt
 def login_view(request):
     if request.method == 'POST':
@@ -78,25 +64,25 @@ def login_view(request):
             credentials = LoginCredentials.objects.get(email=email, password=password)
             user = User.objects.get(emailId=email)
 
-            # Create simple JWT payload without expiry
+            # simple JWT payload without expiry
             payload = {
                 'id': user.id,
                 'emailId': user.emailId,
                 'iat': datetime.datetime.utcnow()
-                # No 'exp' field now
+               
             }
             SECRET_KEY = 'django-insecure-*n-0cm1bk_3ti(f^agvd&gkv6upaweac)2l=#!f4c7eqqyo5b8'
             
-            #  Encode the token
+            # Encode the token
             token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
-            print("testtt",token)
-            #  Set the cookie without expiry
+          
+            # Set the cookie without expiry
             response = redirect('dashboard')
             response.set_cookie(
                 key='jwt',
                 value=token,
                 httponly=True
-                
+                # No max_age or expires → cookie becomes a "session cookie"
             )
 
             return response
@@ -147,7 +133,6 @@ def create_user(request):
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-
 @jwt_required  
 @csrf_exempt      
 @api_view(['PUT'])
@@ -163,10 +148,6 @@ def user_edit(request, user_id):
         return Response({'message': 'User updated successfully!'}, status=status.HTTP_200_OK)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-
 
 @jwt_required  
 @api_view(['DELETE'])
@@ -185,10 +166,17 @@ def user_delete(request, user_id):
 
 
 
+
+
+
+
 @jwt_required  
 def edit_user_page(request, user_id):
     user = get_object_or_404(User, id=user_id)
     return render(request, 'accounts/edituser.html', {'user': user})
+
+
+
 
 
 
@@ -203,6 +191,11 @@ def dashboard(request):
     except Exception:
         return redirect('/accounts/login/')
     return render(request, 'accounts/dashboard.html')
+
+
+@jwt_required
+def dashboard_home_view(request):
+    return render(request, 'accounts/dashboardhome.html')
 
 
 

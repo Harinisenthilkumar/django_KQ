@@ -43,7 +43,7 @@ urlpatterns = [
     #Template URL
     path('login/', views.login_view, name='login'),
     path('dashboard/', views.dashboard_view, name='dashboard'),
-    # path('dashboard/home/', views.dashboard_home_view, name='dashboard_home'),  
+    path('dashboard/home/', views.dashboard_home_view, name='dashboard_home'),  
     path('addusers/', views.add_user_view, name='add_user'),
     path('edituser/<int:user_id>/', views.edit_user_page, name='edit_user_page'),   
     

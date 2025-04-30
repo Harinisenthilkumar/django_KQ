@@ -23,7 +23,6 @@
     .ag-theme-alpine .ag-cell {
       display: flex;
       align-items: center;     /* vertical center */
-      {% comment %} justify-content: center; /* horizontal center */ {% endcomment %}
       text-align: left;
     }
     .ag-theme-alpine .ag-header-cell {
@@ -299,16 +298,14 @@
           </div>
           <nav class="nav-links">
               <ul>
-                  <li>
-                      <img src="{% static 'accounts/images/dashboard_whitebg.svg' %}" class="icon-img" />
+                <li class="sidebar-item" >
+                  <a href="{% url 'dashboard_home' %}" style="display: flex; align-items: center; text-decoration: none; color: white; width: 100%; padding: 10px;">
+                      <img src="{% static 'accounts/images/dashboard_whitebg.svg' %}" class="icon-img" style="margin-right: 10px;" />
                       Dashboard
-                  </li>
-                  {% comment %} <li>
-                   <a href="{% url 'dashboard_home' %}">
-                        <img src="{% static 'accounts/images/dashboard_whitebg.svg' %}" class="icon-img" />
-                        Dashboard
-                    </a>
-                </li>  {% endcomment %}
+                  </a>
+              </li>
+              
+              
                   <li>
                       <img src="{% static 'accounts/images/question_bank_whitebg.svg' %}" class="icon-img" />
                       Question Bank
@@ -333,10 +330,13 @@
                       <img src="{% static 'accounts/images/reports_whitebg.svg' %}" class="icon-img" />
                       Reports
                   </li>
-                  <li>
-                    <img src="{% static 'accounts/images/logout_whitebg.svg' %}" class="icon-img" />
-                    Logout
+                  <li class="sidebar-item" >
+                    <a href="{% url 'logout' %}" style="display: flex; align-items: center; text-decoration: none; color: white; width: 100%; padding: 10px;">
+                        <img src="{% static 'accounts/images/logout_whitebg.svg' %}" class="icon-img" style="margin-right: 10px;" />
+                        Logout
+                    </a>
                 </li>
+                
               </ul>
           </nav>
           <div class="sidebar-image">
@@ -475,7 +475,7 @@
           if (response.ok) {
             alert('User deleted successfully!');
             location.reload();
-            // ✅ Safe check before updating the grid
+            
             if (typeof gridOptions !== 'undefined' && gridOptions.api) {
               gridOptions.api.applyTransaction({ remove: [{ id: userIdToDelete }] });
             } else {
