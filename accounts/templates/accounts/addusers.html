@@ -50,13 +50,13 @@
 
                 </div>
                 <div>
-                    <label for="userrole" class="block text-gray-700 text-sm font-bold mb-2">User Role <span style="color: #E80000;">*</span></label>
-                    <select id="userrole" name="userrole" class="user" required>
-
-                        <option value="candidate">Candidate</option>
-                        <option value="sme">SME</option>
-                        <option value="examiner">Examiner</option>
-                        <option value="admin">Admin</option>
+                  <div class="form-group">
+                    <label for="userrole">User Role <span style="color: #E80000;">*</span></label>
+                    <select id="userrole" name="userrole" class="form-control" required>
+                      <option value="candidate">Candidate</option>
+                      <option value="sme">SME</option>
+                      <option value="examiner">Examiner</option>
+                      <option value="admin">Admin</option>
                     </select>
                     <p id="userroleError" class="text-red-500 text-xs italic"></p> </div>
                 <div class="two-column-form">
@@ -251,19 +251,21 @@
         }
   
         const data = {
+           
           userRole: document.getElementById("userrole").value,
-          userName: document.getElementById("username").value,
+          userName: document.getElementById("username").value,     
           employeeId: document.getElementById("employeeId").value,
           department: document.getElementById("department").value,
           designation: document.getElementById("designation").value,
-          emailId: document.getElementById("email").value, 
-          mobileNumber: document.getElementById("mobile-number").value, 
+          emailId: document.getElementById("email").value,
+          mobileNumber: document.getElementById("mobile-number").value,
           isActive: document.querySelector('input[name="is-active"]:checked')?.value === "yes",
           remarks: document.getElementById("remarks").value,
-          isAccountLocked: document.querySelector('input[name="is-locked"]:checked')?.value === "yes", 
-        };
+          isAccountLocked: document.querySelector('input[name="is-locked"]:checked')?.value === "yes",
+          password: "Default@123" 
+      };
   
-        fetch("http://127.0.0.1:8000/accounts/api/users/", {
+        fetch("http://127.0.0.1:8000/accounts/create_user", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
