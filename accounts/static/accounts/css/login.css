@@ -191,14 +191,3 @@ body {
   width: 238px;
   height: 46px;
 }
-.error-message {
-  height: 20px; /* Reserve space */
-  color: red;
-  margin-bottom: 10px;
-  text-align: center;
-  font-weight: bold;
-}
-
-.error-message p {
-  margin: 0;
-}

@@ -143,20 +143,11 @@ body {
 }
 
 .form-group {
-    margin-bottom: 5px;
+    margin-bottom: 25px;
     width: 100%;
     display: flex;
     flex-direction: column;
 }
-select.form-control {
-    appearance: none; 
-    background-color: #fff;
-    background-image: url('your-dropdown-icon.svg');
-    background-position: right 10px center;
-    background-repeat: no-repeat;
-    background-size: 12px;
-  }
-  
 
 .form-group label {
     display: block;
@@ -374,7 +365,6 @@ select.form-control {
 
     .form-header h2 {
         font-size: 1.5rem;
-        color: #3F2768;
     }
 
     .button-group {

@@ -47,26 +47,9 @@
             <p class="error-message" id="passwordError"></p>
           </div>
 
-          <form method="post" action="{% url 'login' %}">
-            {% csrf_token %}
-          
-            <!-- Username and Password inputs here -->
-          <!-- Error message area with fixed height -->
-<div class="error-message">
-  {% if messages %}
-    {% for message in messages %}
-      <p>{{ message }}</p>
-    {% endfor %}
-  {% endif %}
-</div>
-
-<button type="submit" class="login-btn" id="submitLogin">
-  Login
-  <img src="{% static 'accounts/images/Group 26197.svg' %}" alt="Arrow Icon">
-</button>
-
-          </form>
-          
+          <button type="submit" class="login-btn" id="submitLogin"> Login
+            <img src="{% static 'accounts/images/Group 26197.svg' %}" alt="Arrow Icon">
+          </button>
           {% if messages %}
             <ul class="messages">
                 {% for message in messages %}
